@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/TakesxiSximada/mithril-todo",
   "dependencies": {
-    "bower": "^1.5.2"
+    "bower": "^1.5.2",
+    "webpack": "^1.12.1"
   }
 }
