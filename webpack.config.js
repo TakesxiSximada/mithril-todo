@@ -4,6 +4,9 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: {
+        index: './src/index.js',
+        example: './src/example.js',
+        pages: './src/pages.js',
         vendor: [
             'mithril',
         ],
@@ -29,5 +32,6 @@ module.exports = {
         new webpack.ResolverPlugin(
             new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
         ),
+        new webpack.ProvidePlugin({m: "mithril"}),
     ],
 };
