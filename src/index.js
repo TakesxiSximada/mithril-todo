@@ -70,7 +70,45 @@ todo.view = function (){
     ]);
 };
 
-m.mount(document, {
-    controller: todo.controller,
-    view: todo.view
+var dashboard = {
+    controller: function (){
+        return {id: m.route.param('userID')};
+    },
+    view: function (controller){
+        return m('a[href="/dashboard/alice"]', {config: m.route}, controller.id);
+    },
+};
+
+var jumper = {
+    controller: function (){
+        m.route('/dashboard/alice');
+    }
+};
+
+
+// m.route.mode は3種類
+// - search (defaut): Query文字?を使用。IE8の場合はhistory.pushStateのサポートがないため、ページリフレッシュが発生する
+// - hash: ページリフレッシュが発生しない。名前付きアンカー(/aaa#top)がつかえない。
+// - pathname: 特別な文字を含まないURLのみ使用可。このモードでブックマークとページリフレッシュをサポートするためには、サーバ側にも手を加える必要があり。IE8の場合はhistory.pushStateのサポートがないため、ページリフレッシュが発生する
+m.route.mode = 'hash';
+
+m.route(document.body, '/dashboard/alice', {
+    '/jump': jumper,
+    '/dashboard/:userID': dashboard,
 });
+
+// routing
+// - サポートしている内容
+//   - routeのリスト定義
+//   - source codeによるroute間のリダイレクト
+//   - テンプレート内でリンクを作ると、透過的であまり主張しないリンクが作成できる
+// - 必要な項目
+//   - HOSTとなるDOM要素
+//   - デフォルトのroute
+//   - 遷移する可能性のあるroute
+//   - 遷移する可能性のあるrouteをレンダリングするモジュールのkey/value map
+//
+// m.mount(document, {
+//     controller: todo.controller,
+//     view: todo.view
+// });
