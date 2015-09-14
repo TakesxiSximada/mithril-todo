@@ -5,7 +5,6 @@ var webpack = require('webpack');
 module.exports = {
     entry: {
         index: './src/index.js',
-        example: './src/example.js',
         pages: './src/pages.js',
         vendor: [
             'mithril',
