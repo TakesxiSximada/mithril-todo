@@ -76,7 +76,7 @@
 	};
 	User.all = function (pattern){
 	    return m.request({
-	        url: '/api/user',
+	        url: './api/users.json',
 	        method: 'GET',
 	        data: {pattern: pattern},
 	        type: this,
@@ -103,7 +103,7 @@
 	};
 	User.prototype.save = function (user_id){
 	    return m.request({
-	        url: '/api/user',
+	        url: './api/user',
 	        method: 'POST',
 	        data: [this],
 	    }).then(mlog);
