@@ -6,6 +6,7 @@ module.exports = {
     entry: {
         index: './src/index.js',
         pages: './src/pages.js',
+        users: './src/users.js',
         vendor: [
             'mithril',
         ],
