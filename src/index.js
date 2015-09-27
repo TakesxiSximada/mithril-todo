@@ -292,10 +292,18 @@ var TodoListComponent = {
         var form = controller.form();
         return m('div', [
             m('button', {onclick: controller.create}, 'new'),
-            m('ol', [
+            m('ul', [
                 form.todos.map(function (todo, index){
                     return m('li', [
-                        m('a[href="/' + todo.id() + '"]', {config: m.route}, todo.title()),
+                        m('label', [
+                            m('input[type="checkbox"]'),
+                        ]),
+                        m('div', [
+                            m('span', todo.status()),
+                        ]),
+                        m('div', [
+                            m('a[href="/' + todo.id() + '"]', {config: m.route}, todo.title()),
+                        ]),
                     ]);
                 }),
             ]),
