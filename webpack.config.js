@@ -26,7 +26,7 @@ module.exports = {
     },
     resolve: {
         root: [path.join(__dirname, "bower_components")],
-        extensions: ["", ".js"],
+        extensions: ["", ".js", ".css"],
     },
     plugins: [
         new webpack.ResolverPlugin(

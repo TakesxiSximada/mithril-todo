@@ -342,7 +342,7 @@
 	                form.todos.map(function (todo, index){
 	                    return m('li', [
 	                        m('label', [
-	                            m('input[type="checkbox"]'),
+	                            m('input[type="checkbox", class="form-control"]'),
 	                        ]),
 	                        m('div', [
 	                            m('span', todo.status()),
@@ -357,19 +357,24 @@
 	    },
 	}
 
-	function cfactory (){
-	    TodoListComponent.controller();
-	    TodoListComponent.form().load();
-	    return TodoListComponent;
+	var TodoCreateComponent2 = {
+	    controller: function (){
+	    },
+	    view: function (controller){
+	        return m('a[class="btn btn-primary btn-lg active" href="#"]', 'grehaoigreah');
+	    },
 	}
 
-	m.route.mode = 'hash';
-	m.route(document.body, '/', {
-	    '/': TodoListComponent,  // list
-	    '/new': TodoCreateComponent,  // create entry
-	    '/:id': TodoComponent,  // show and edit entry
 
-	});
+
+	m.route.mode = 'hash';
+	m.mount(document.getElementById('todo-input'), TodoCreateComponent2);
+	// m.route(document.body, '/', {
+	//     '/': TodoListComponent,  // list
+	//     '/new': TodoCreateComponent,  // create entry
+	//     '/:id': TodoComponent,  // show and edit entry
+
+	// });
 
 
 /***/ },
