@@ -33,8 +33,11 @@ module.exports = {
         ]
     },
     resolve: {
-        root: [path.join(__dirname, "bower_components")],
-        extensions: ["", ".js", ".css", ".svg", ".woff", ".eof", ".ttf"],
+        root: [
+            path.join(__dirname, "bower_components"),
+            path.join(__dirname, "static"),
+        ],
+        extensions: ["", ".js", ".css", ".svg", ".woff", ".eof", ".ttf", ".png"],
     },
     plugins: [
         new BowerWebpackPlugin({excludes: /.*\.less/}),

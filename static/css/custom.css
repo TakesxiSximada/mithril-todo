@@ -15,6 +15,7 @@
 .box {
     text-align: center;
 }
-.box span{
-    font-size: 2em;
+
+.box {
+    width: 200px;
 }
