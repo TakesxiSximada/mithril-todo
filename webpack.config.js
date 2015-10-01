@@ -19,15 +19,22 @@ module.exports = {
             // { test: /\.less$/, loader: 'style!css!less' }, // use ! to chain loaders
             // { test: /\.css$/, exclude: /\.useable\.css$/, loader: 'style!css'},
             { test: /\.css$/, loader: 'style!css'},
-            { test: /\.(woff|svg|ttf|eot)([\?]?.*)$/, loader: "file-loader?name=[name].[ext]"},
             { test: /\.useable\.css$/, loader: 'style/useable!css' },
             { test: /\.(png|jpg)$/, loader: 'url?limit=8192' }, // inline base64 URLs for <=8k images, direct URLs for the rest,
-            { test: /\.html$/, loader: "raw" }
+            { test: /\.html$/, loader: "raw" },
+            // for jquery
+            { test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' },
+            // for bootstrap css
+            { test: /\.svg$/, loader: 'url-loader?mimetype=image/svg+xml'},
+            { test: /\.woff$/, loader: 'url-loader?mimetype=application/font-woff'},
+            { test: /\.woff2$/, loader: 'url-loader?mimetype=application/font-woff'},
+            { test: /\.eot$/, loader: 'url-loader?mimetype=application/font-woff'},
+            { test: /\.ttf$/, loader: 'url-loader?mimetype=application/font-woff'},
         ]
     },
     resolve: {
         root: [path.join(__dirname, "bower_components")],
-        extensions: ["", ".js", ".css"],
+        extensions: ["", ".js", ".css", ".svg", ".woff", ".eof", ".ttf"],
     },
     plugins: [
         new BowerWebpackPlugin({excludes: /.*\.less/}),
