@@ -1,0 +1,20 @@
+.search-input {
+    margin: 10px;
+}
+
+.todo-embrem-wrapper{
+    margin: 20px 0px;
+}
+
+.todo-embrem{
+    font-size: 3em;
+    color: green;;
+}
+
+
+.box {
+    text-align: center;
+}
+.box span{
+    font-size: 2em;
+}
