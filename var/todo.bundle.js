@@ -47,7 +47,7 @@
 
 	// -*- coding: utf-8 -*-
 	var m = __webpack_require__(70);
-	var views = __webpack_require__(103);
+	var views = __webpack_require__(77);
 
 	var TodoComponent = {
 	    controller: function (){
@@ -9334,7 +9334,7 @@
 
 /***/ },
 
-/***/ 103:
+/***/ 77:
 /***/ function(module, exports) {
 
 	// -*- coding: utf-8 -*-
