@@ -366,10 +366,20 @@
 	    },
 	}
 
+	var todo_view = __webpack_require__(76);
+
+
+	var TodoListComponent = {
+	    controller: function (){
+	        console.log("grheoighao");
+	    },
+	    view: todo_list_view.todo_list_view,
+	};
 
 
 	m.route.mode = 'hash';
-	m.mount(document.getElementById('todo-input'), TodoCreateComponent2);
+	// m.mount(document.getElementById('todo-input'), TodoCreateComponent2);
+	m.mount(document.getElementById('todo-list'), TodoListComponent);
 	// m.route(document.body, '/', {
 	//     '/': TodoListComponent,  // list
 	//     '/new': TodoCreateComponent,  // create entry
@@ -9649,6 +9659,46 @@
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
 
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ },
+
+/***/ 76:
+/***/ function(module, exports) {
+
+	// -*- coding: utf-8 -*-
+
+	function todo_list_view(){
+	    return {tag: "div", attrs: {class:"list-group-item"}, children: [
+	      {tag: "div", attrs: {class:"row"}, children: [
+	        {tag: "div", attrs: {class:"col-xs-1 col-md-1"}, children: [
+	          {tag: "div", attrs: {class:"todo-embrem-wrapper"}, children: [
+	            {tag: "a", attrs: {href:"#", class:"todo-embrem"}, children: [
+	              {tag: "span", attrs: {class:"glyphicon glyphicon-ok-circle", "aria-hidden":"true"}}
+	            ]}
+	          ]}
+	        ]}, 
+
+	        {tag: "div", attrs: {class:"col-xs-9 col-md-9"}, children: [
+	          {tag: "span", attrs: {href:"#"}, children: ["a hour ago"]}, 
+	          {tag: "p", attrs: {}, children: [{tag: "a", attrs: {href:"#"}, children: ["todo title"]}]}, 
+	          {tag: "p", attrs: {href:"#"}, children: ["description"]}
+	        ]}, 
+
+	        {tag: "div", attrs: {class:"col-xs-1 col-md-1"}, children: [
+	          {tag: "span", attrs: {class:"glyphicon glyphicon-tags", "aria-hidden":"true"}}, 
+	          {tag: "span", attrs: {class:"glyphicon glyphicon-tags", "aria-hidden":"true"}}, 
+	          {tag: "span", attrs: {class:"glyphicon glyphicon-tags", "aria-hidden":"true"}}
+	        ]}, 
+	        {tag: "div", attrs: {class:"col-xs-1 col-md-1"}, children: [
+	          {tag: "span", attrs: {class:"glyphicon glyphicon-fire", "aria-hidden":"true"}}, 
+	          {tag: "span", attrs: {class:"glyphicon glyphicon-comment", "aria-hidden":"true"}}, 
+	          {tag: "span", attrs: {class:"glyphicon glyphicon-ok-circle", "aria-hidden":"true"}}, 
+	          {tag: "span", attrs: {class:"glyphicon glyphicon-ban-circle", "aria-hidden":"true"}}
+	        ]}
+	      ]}
+	   ]}
+	};
+
 
 /***/ }
 

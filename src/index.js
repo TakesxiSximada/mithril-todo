@@ -319,10 +319,20 @@ var TodoCreateComponent2 = {
     },
 }
 
+var todo_view = require('./compile_views/todo.view.js');
+
+
+var TodoListComponent = {
+    controller: function (){
+        console.log("grheoighao");
+    },
+    view: todo_list_view.todo_list_view,
+};
 
 
 m.route.mode = 'hash';
-m.mount(document.getElementById('todo-input'), TodoCreateComponent2);
+// m.mount(document.getElementById('todo-input'), TodoCreateComponent2);
+m.mount(document.getElementById('todo-list'), TodoListComponent);
 // m.route(document.body, '/', {
 //     '/': TodoListComponent,  // list
 //     '/new': TodoCreateComponent,  // create entry
