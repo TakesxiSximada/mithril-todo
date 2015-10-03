@@ -1,13 +1,12 @@
 // -*- coding: utf-8 -*-
 var m = require('mithril');
-var views = require('./views/views.js');
+var views = require('./compile_views/main.js');
 
 var TodoComponent = {
     controller: function (){
+        return {};
     },
-    view: function (){
-        return m('p', 'todo名');
-    },
+    view: views.todo,
 };
 
 m.route.mode = 'hash';
