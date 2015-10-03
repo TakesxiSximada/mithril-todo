@@ -10,6 +10,7 @@ module.exports = {
         'pages': './src/pages.js',
         'todo': './src/todo/main.js',
         'vendor': './entry.js',
+        'common': './static/css/main.styl',
     },
     output: {
         path: path.join(__dirname, 'var'),
@@ -31,6 +32,11 @@ module.exports = {
             { test: /\.woff2$/, loader: 'url-loader?mimetype=application/font-woff'},
             { test: /\.eot$/, loader: 'url-loader?mimetype=application/font-woff'},
             { test: /\.ttf$/, loader: 'url-loader?mimetype=application/font-woff'},
+            // for msx
+            // { test: /\.msx/, loader: 'babel', exclude: /(node_modules|bower_components)/},
+            { test: /\.msx/, loader: 'msx-loader', exclude: /(node_modules|bower_components)/},
+            // for stylus
+            { test: /\.styl/, loader: 'style-loader!css-loader!stylus-loader', exclude: /(node_modules|bower_components)/},
         ]
     },
     resolve: {
