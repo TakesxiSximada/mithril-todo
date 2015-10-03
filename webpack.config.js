@@ -8,6 +8,7 @@ module.exports = {
         'index': './src/index.js',
         'users': './src/users.js',
         'pages': './src/pages.js',
+        'todo': './src/todo/main.js',
         'vendor': './entry.js',
     },
     output: {

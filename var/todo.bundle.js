@@ -47,6 +47,7 @@
 
 	// -*- coding: utf-8 -*-
 	var m = __webpack_require__(70);
+
 	var views = __webpack_require__(103);
 
 	var TodoComponent = {
@@ -9343,7 +9344,6 @@
 	module.exports.todo = function (){
 	    return {tag: "p", attrs: {}, children: ["todo名"]};
 	};
-
 
 /***/ }
 
