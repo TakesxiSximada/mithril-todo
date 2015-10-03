@@ -1,20 +1,17 @@
 body {
-    font: 13px/1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-    font-style: normal;
-    font-variant: normal;
-    font-family: Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
-
-    color: #333;
-    background-color: #fff;
+  font: 13px/1.4 Helvetica arial nimbussansl liberationsans freesans clean sans-serif "Segoe UI Emoji" "Segoe UI Symbol";
+  font-style: normal;
+  font-variant: normal;
+  font-family: Helvetica arial nimbussansl liberationsans freesans clean sans-serif 'Segoe UI Emoji' 'Segoe UI Symbol';
+  color: #333;
+  background-color: #fff;
 }
-
 p {
-    padding: 20px;
-    border: 1px #999 sold;
-    border-radius: 4px;
-    box-shadow: 0 0 6px #ccc;
+  padding: 20px;
+  border: 1px #999 sold;
+  border-radius: 4px;
+  box-shadow: 0 0 6px #ccc;
 }
-
 .todo-wrap {
-    margin: 20px;
+  margin: 20px;
 }
