@@ -1,6 +1,6 @@
 // -*- coding: utf-8 -*-
 var m = require('mithril');
-var views = require('./compile_views/main.js');
+var views = require('msx-loader!./views/main.msx');
 
 var TodoComponent = {
     controller: function (){

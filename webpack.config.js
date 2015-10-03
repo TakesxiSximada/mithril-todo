@@ -31,6 +31,9 @@ module.exports = {
             { test: /\.woff2$/, loader: 'url-loader?mimetype=application/font-woff'},
             { test: /\.eot$/, loader: 'url-loader?mimetype=application/font-woff'},
             { test: /\.ttf$/, loader: 'url-loader?mimetype=application/font-woff'},
+            // msx
+            // { test: /\.msx/, loader: 'babel', exclude: /(node_modules|bower_components)/},
+            { test: /\.msx/, loader: 'msx-loader', exclude: /(node_modules|bower_components)/},
         ]
     },
     resolve: {
