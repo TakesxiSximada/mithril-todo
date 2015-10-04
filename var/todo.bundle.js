@@ -47,17 +47,55 @@
 
 	// -*- coding: utf-8 -*-
 	var m = __webpack_require__(73);
-	var views = __webpack_require__(80);
+	var models = __webpack_require__(80);
+	var views = __webpack_require__(81);
+
 
 	var TodoComponent = {
 	    controller: function (){
 	        return {};
 	    },
-	    view: views.todo,
+	    view: views.todo_list,
+	};
+
+
+	var todos = new models.TodoList()
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+	todos.push(new models.Todo({name: 'gera'}));
+
+	var TodoListComponent = {
+	    controller: function (){
+	        return {todos: todos};
+	    },
+	    view: views.todo_list,
 	};
 
 	m.route.mode = 'hash';
-	m.mount(document.getElementById('todo-wrap'), TodoComponent);
+	m.mount(document.getElementById('todo-wrap'), TodoListComponent);
 
 
 /***/ },
@@ -9335,14 +9373,76 @@
 /***/ },
 
 /***/ 80:
+/***/ function(module, exports, __webpack_require__) {
+
+	// -*- coding: utf-8 -*-
+	var m = __webpack_require__(73);
+
+
+	function Todo(data){
+	    this.name = m.prop(data.name);
+	}
+
+
+	var TodoList = Array;
+
+
+	module.exports.Todo = Todo;
+	module.exports.TodoList = TodoList;
+
+
+/***/ },
+
+/***/ 81:
+/***/ function(module, exports, __webpack_require__) {
+
+	// -*- coding: utf-8 -*-
+	var helpers = __webpack_require__(82);
+
+
+	function todo(){
+	    return {tag: "li", attrs: {class:"todo"}, children: ["todo名"]}
+	};
+
+
+	function todo_summary_view(todo_, index){
+	    return {tag: "li", attrs: {class:"todo"}, children: ["todo名"]}
+	};
+
+
+	function todo_list(ctl){
+	    return {tag: "ul", attrs: {}, children: [
+	        helpers.build_todo_summary_list(ctl.todos)
+	        ]}
+	};
+
+
+	module.exports.todo = todo;
+	module.exports.todo_list = todo_list;
+
+
+/***/ },
+
+/***/ 82:
 /***/ function(module, exports) {
 
 	// -*- coding: utf-8 -*-
 
 
-	module.exports.todo = function (){
-	    return {tag: "p", attrs: {}, children: ["todo名"]};
-	};
+	function build_todo_summary(todo){
+	    return {tag: "li", attrs: {class:"todo"}, children: [todo.name()]}
+	}
+
+
+	function build_todo_summary_list(todos){
+	    return {tag: "div", attrs: {}, children: [
+	        todos.map(build_todo_summary)
+	        ]}
+	}
+
+
+	module.exports.build_todo_summary_list = build_todo_summary;
+	module.exports.build_todo_summary_list = build_todo_summary_list;
 
 
 /***/ }

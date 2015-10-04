@@ -1,0 +1,17 @@
+// -*- coding: utf-8 -*-
+
+
+function build_todo_summary(todo){
+    return <li class="todo">{todo.name()}</li>
+}
+
+
+function build_todo_summary_list(todos){
+    return <div>
+        {todos.map(build_todo_summary)}
+        </div>
+}
+
+
+module.exports.build_todo_summary_list = build_todo_summary;
+module.exports.build_todo_summary_list = build_todo_summary_list;
