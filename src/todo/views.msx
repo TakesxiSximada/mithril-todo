@@ -1,0 +1,23 @@
+// -*- coding: utf-8 -*-
+var helpers = require('msx-loader!./helpers.msx');
+
+
+function todo(){
+    return <li class="todo">todo名</li>
+};
+
+
+function todo_summary_view(todo_, index){
+    return <li class="todo">todo名</li>
+};
+
+
+function todo_list(ctl){
+    return <ul>
+        {helpers.build_todo_summary_list(ctl.todos)}
+        </ul>
+};
+
+
+module.exports.todo = todo;
+module.exports.todo_list = todo_list;
