@@ -20,6 +20,7 @@ from tornado.web import (
 _logger = getLogger(__name__)
 _logger.setLevel(INFO)
 
+
 class TopHandler(RequestHandler):
     def get(self):
         self.write("Hello, world")

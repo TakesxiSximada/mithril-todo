@@ -48,7 +48,11 @@
 	// -*- coding: utf-8 -*-
 	var m = __webpack_require__(73);
 	var models = __webpack_require__(80);
-	var views = __webpack_require__(81);
+	var viewmodels = __webpack_require__(81);
+	var views = __webpack_require__(82);
+	var observers = __webpack_require__(110);
+	var utils = __webpack_require__(113);
+
 
 
 	var TodoComponent = {
@@ -59,43 +63,35 @@
 	};
 
 
-	var todos = new models.TodoList()
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-	todos.push(new models.Todo({name: 'gera'}));
-
 	var TodoListComponent = {
-	    controller: function (){
-	        return {todos: todos};
-	    },
+	    controller: observers.Observable.register([utils.UPDATE_TODO], function (){
+	        var self = this;
+	        self.todos = m.prop(new models.TodoList());
+	        models.Todo.query.all().then(function (todos){
+	            self.todos().push.apply(self.todos(), todos);
+	        }).then(function (){
+	            console.log('redraw');
+	            m.redraw();
+	        });
+	    }),
 	    view: views.todo_list,
 	};
 
+
+	var TodoInputComponent = {
+	    controller: function (){
+	        console.log('A');
+	        return {
+	            vm: m.prop(new viewmodels.TodoInput()),
+	        };
+	    },
+	    view: views.todo_input,
+	};
+
+
 	m.route.mode = 'hash';
 	m.mount(document.getElementById('todo-wrap'), TodoListComponent);
+	m.mount(document.getElementById('todo-input'), TodoInputComponent);
 
 
 /***/ },
@@ -9379,12 +9375,78 @@
 	var m = __webpack_require__(73);
 
 
+	var TodoList = Array;
+
+
+	STORAGE_KEY = 'TODO-STORAGE-KEY-';
+
 	function Todo(data){
+	    this.id = m.prop();
 	    this.name = m.prop(data.name);
 	}
 
+	Todo.query = {
 
-	var TodoList = Array;
+	    _create: function (key){
+	        var serial = window.localStorage.getItem(key)
+	        var data = JSON.parse(serial);
+	        return new Todo(data);
+	    },
+	    all: function (){
+	        var self = this;
+	        var deferred = m.deferred();
+	        setTimeout(function (){
+	            var key = '';
+	            var todos = new TodoList();
+	            for (var ii=0; ii<window.localStorage.length; ii++){
+	                key = window.localStorage.key(ii);
+
+	                if (key.indexOf(STORAGE_KEY) == 0){
+	                    todos.push(self._create(key));
+	                }
+	            }
+	            deferred.resolve(todos);
+	        }, 0);
+	        return deferred.promise;
+	    },
+	    filter: function (){
+	    },
+	    order_by: function (){
+	    },
+	};
+	Todo.prototype._count = function (){
+	    return Todo.query.all()
+	        .then(function (todos){
+	            return todos.length;
+	        });
+	};
+	Todo.prototype._numbering = function (){
+	    var self = this;
+	    if (this.id()){
+	        var deferred = m.deferred();
+	        deferred.resolve(this.id());
+	        return deferred.promise;
+	    }else{
+	        return this._count()
+	            .then(function (count){
+	                self.id(count + 1);  // nummbering
+	            });
+	    }
+	};
+	Todo.prototype.save = function (){
+	    var self = this;
+	    return this._numbering()
+	        .then(function (){
+	            var data = {
+	                id: self.id(),
+	                name: self.name(),
+	            };
+	            window.localStorage.setItem(
+	                STORAGE_KEY + data.id,
+	                JSON.stringify(data)
+	            );
+	        });
+	};
 
 
 	module.exports.Todo = Todo;
@@ -9397,8 +9459,43 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	// -*- coding: utf-8 -*-
-	var helpers = __webpack_require__(82);
+	var m = __webpack_require__(73);
+	var models = __webpack_require__(80);
 
+
+	function TodoInput(){
+	    var self = this;
+	    self.name = m.prop('');
+	    self.save = function (){
+	        var name = self.name().trim();
+	        if (name.length > 0){
+	            var todo = new models.Todo({
+	                name: self.name(),
+	            });
+	            return todo.save()
+	                .then(function (todo_){
+	                    self.name('');
+	                    return todo_;
+	                });
+	        }else{ // input empty error
+	            alert('empty!!');
+	        }
+	    };
+	}
+
+
+	module.exports.TodoInput = TodoInput;
+
+
+/***/ },
+
+/***/ 82:
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(m) {// -*- coding: utf-8 -*-
+	var helpers = __webpack_require__(83);
+	var observers = __webpack_require__(110);
+	var utils = __webpack_require__(113);
 
 	function todo(){
 	    return {tag: "li", attrs: {class:"todo"}, children: ["todo名"]}
@@ -9411,19 +9508,51 @@
 
 
 	function todo_list(ctl){
-	    return {tag: "ul", attrs: {}, children: [
-	        helpers.build_todo_summary_list(ctl.todos)
-	        ]}
+	    if (ctl.todos().length > 0){
+	        return {tag: "ul", attrs: {}, children: [
+	            helpers.build_todo_summary_list(ctl.todos())
+	        ]};
+	    }else{
+	        return {tag: "p", attrs: {}, children: ["TODO is nothing..."]};
+	    }
+	};
+
+
+	function todo_input_entry(ctl){
+	    var vm = ctl.vm();
+	    return m('input[type="text"][placeholder="Input todo name and Press enter!!"]', {
+	        onkeypress: function (event){
+	            if (event.keyCode == 13){ // enter
+	                vm.save().then(function (todo){
+	                    observers.Observable.trigger(utils.UPDATE_TODO);
+	                });
+	            }
+	        },
+	        oninput: m.withAttr('value', vm.name),
+	        value: vm.name(),
+	    });
+	}
+
+	function todo_input_all(ctl){
+	    return {tag: "button", attrs: {}, children: ["BULK"]}
+	}
+
+	function todo_input(ctl){
+	    return {tag: "div", attrs: {}, children: [
+	        todo_input_entry(ctl)
+	      ]}
 	};
 
 
 	module.exports.todo = todo;
 	module.exports.todo_list = todo_list;
+	module.exports.todo_input = todo_input;
 
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(73)))
 
 /***/ },
 
-/***/ 82:
+/***/ 83:
 /***/ function(module, exports) {
 
 	// -*- coding: utf-8 -*-
@@ -9443,6 +9572,68 @@
 
 	module.exports.build_todo_summary_list = build_todo_summary;
 	module.exports.build_todo_summary_list = build_todo_summary_list;
+
+
+/***/ },
+
+/***/ 110:
+/***/ function(module, exports) {
+
+	// -*- coding: utf-8 -*-
+
+
+	var Observable = function (){
+	    var channels = {};
+	    return {
+	        register: function (subscriptions, controller){
+	            return function self(){
+	                var ctl = new controller();
+	                var reload = controller.bind(ctl);
+	                Observable.on(subscriptions, reload);
+	                ctl.onunload = function (){
+	                    Observable.off(reload);
+	                }
+	                return ctl;
+	            };
+	        },
+	        on: function (subscriptions, callback){
+	            subscriptions.forEach(function (subscription){
+	                if (!channels[subscription]){
+	                    channels[subscription] = [];
+	                }
+	                channels[subscription].push(callback);
+	            });
+	        },
+	        off: function (callback){
+	            for (var channel in channels){
+	                var index = channels[channel].indexOf(callback);
+	                if (index > -1){
+	                    channels[channel].splice(index, 1);
+	                }
+	            }
+	        },
+	        trigger: function(channel, args){
+	            console.log(channel);
+	            channels[channel].map(function (callback){
+	                callback(args);
+	            });
+	        },
+	    };
+	}.call();
+
+
+	module.exports.Observable = Observable;
+
+
+/***/ },
+
+/***/ 113:
+/***/ function(module, exports) {
+
+	// -*- coding: utf-8 -*-
+
+
+	module.exports.UPDATE_TODO = 'update_todo';
 
 
 /***/ }

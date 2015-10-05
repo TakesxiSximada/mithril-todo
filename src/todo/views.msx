@@ -1,6 +1,7 @@
 // -*- coding: utf-8 -*-
 var helpers = require('msx-loader!./helpers.msx');
-
+var observers = require('./observers.js');
+var utils = require('./utils.js');
 
 function todo(){
     return <li class="todo">todo名</li>
@@ -13,11 +14,42 @@ function todo_summary_view(todo_, index){
 
 
 function todo_list(ctl){
-    return <ul>
-        {helpers.build_todo_summary_list(ctl.todos)}
-        </ul>
+    if (ctl.todos().length > 0){
+        return <ul>
+            {helpers.build_todo_summary_list(ctl.todos())}
+        </ul>;
+    }else{
+        return <p>TODO is nothing...</p>;
+    }
+};
+
+
+function todo_input_entry(ctl){
+    var vm = ctl.vm();
+    return m('input[type="text"][placeholder="Input todo name and Press enter!!"]', {
+        onkeypress: function (event){
+            if (event.keyCode == 13){ // enter
+                vm.save().then(function (todo){
+                    observers.Observable.trigger(utils.UPDATE_TODO);
+                });
+            }
+        },
+        oninput: m.withAttr('value', vm.name),
+        value: vm.name(),
+    });
+}
+
+function todo_input_all(ctl){
+    return <button>BULK</button>
+}
+
+function todo_input(ctl){
+    return <div>
+        {todo_input_entry(ctl)}
+      </div>
 };
 
 
 module.exports.todo = todo;
 module.exports.todo_list = todo_list;
+module.exports.todo_input = todo_input;
