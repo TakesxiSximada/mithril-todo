@@ -77,7 +77,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  font: 13px/1.4 Helvetica arial nimbussansl liberationsans freesans clean sans-serif \"Segoe UI Emoji\" \"Segoe UI Symbol\";\n  font-style: normal;\n  font-variant: normal;\n  font-family: Helvetica arial nimbussansl liberationsans freesans clean sans-serif 'Segoe UI Emoji' 'Segoe UI Symbol';\n  color: #333;\n  background-color: #fff;\n}\nfooter {\n  border: 1px #999 sold;\n  position: fixed;\n  bottom: 0;\n  width: 100%;\n}\n.todo {\n  padding: 20px;\n  border: 1px #999 sold;\n  border-radius: 4px;\n  box-shadow: 0 0 6px #ccc;\n}\nli.todo {\n  list-style: none;\n}\n#content,\n#todo-wrap {\n  margin: 20px;\n}\n#todo-input input {\n  width: 100%;\n}\n", ""]);
+	exports.push([module.id, "body {\n  font: 13px/1.4 Helvetica arial nimbussansl liberationsans freesans clean sans-serif \"Segoe UI Emoji\" \"Segoe UI Symbol\";\n  font-style: normal;\n  font-variant: normal;\n  font-family: Helvetica arial nimbussansl liberationsans freesans clean sans-serif 'Segoe UI Emoji' 'Segoe UI Symbol';\n  color: #333;\n  background-color: #fff;\n}\n.footer {\n  border: 1px #999 sold;\n  display: block;\n  position: fixed;\n  bottom: -20px;\n  width: inherit;\n}\n#todo-input input {\n  width: 100%;\n  height: 100%;\n}\n.todo {\n  padding: 20px;\n  border: 1px #999 sold;\n  border-radius: 4px;\n  box-shadow: 0 0 6px #ccc;\n}\nli.todo {\n  list-style: none;\n}\n#content,\n#todo-wrap {\n  margin: 20px;\n}\n", ""]);
 
 	// exports
 
